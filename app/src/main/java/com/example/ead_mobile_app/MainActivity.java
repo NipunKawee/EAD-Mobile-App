@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnProfileModification;
     private Button btnAccountDeactivation;
     private Button btnLogin;
+    private Button btnBookTrain;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -24,9 +25,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize buttons
         btnRegistration = findViewById(R.id.btnRegistration);
-        btnProfileModification = findViewById(R.id.btnProfileModification);
-        btnAccountDeactivation = findViewById(R.id.btnAccountDeactivation);
+        //btnProfileModification = findViewById(R.id.btnProfileModification);
+        //btnAccountDeactivation = findViewById(R.id.btnAccountDeactivation);
         btnLogin = findViewById(R.id.btnLogin);
+        btnBookTrain = findViewById(R.id.btnBookTrain);
 
         // Set click listeners for buttons
         btnRegistration.setOnClickListener(new View.OnClickListener() {
@@ -41,26 +43,8 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Launch RegistrationActivity
+                // Launch TrainBookingActivity after login
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btnProfileModification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Launch ProfileModificationActivity
-                Intent intent = new Intent(MainActivity.this, ProfileModificationActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btnAccountDeactivation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Launch AccountDeactivationActivity
-                Intent intent = new Intent(MainActivity.this, AccountDeactivationActivity.class);
                 startActivity(intent);
             }
         });

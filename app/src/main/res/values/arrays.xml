@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Define an array of station names -->
+    <string-array name="station_array">
+        <item>Station A</item>
+        <item>Station B</item>
+        <item>Station C</item>
+        <item>Station D</item>
+        <!-- Add more station names as needed -->
+    </string-array>
+</resources>

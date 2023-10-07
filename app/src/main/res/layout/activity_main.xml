@@ -26,22 +26,4 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"/>
 
-    <Button
-        android:id="@+id/btnProfileModification"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Profile Modification"
-        android:layout_below="@id/btnRegistration"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"/>
-
-    <Button
-        android:id="@+id/btnAccountDeactivation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Account Deactivation"
-        android:layout_below="@id/btnProfileModification"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"/>
-
 </RelativeLayout>

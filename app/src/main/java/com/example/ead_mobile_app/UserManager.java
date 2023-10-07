@@ -13,10 +13,11 @@ public class UserManager {
     }
 
     // User registration
-    public boolean registerUser(String nic, String username, String password) {
+    public boolean registerUser(String nic, String username, String password, int mobile) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_NIC, nic);
+        values.put(DatabaseHelper.COLUMN_MOBILE, mobile);
         values.put(DatabaseHelper.COLUMN_USERNAME, username);
         values.put(DatabaseHelper.COLUMN_PASSWORD, password);
         long newRowId = db.insert(DatabaseHelper.TABLE_USERS, null, values);

@@ -12,16 +12,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Define the User table schema
     public static final String TABLE_USERS = "users";
     public static final String COLUMN_NIC = "nic";
+    public static final String COLUMN_MOBILE = "mobile";
     public static final String COLUMN_USERNAME = "username";
     public static final String COLUMN_PASSWORD = "password";
     public static final String COLUMN_ACTIVE = "active";
 
+    public static final String TABLE_BOOKINGS = "bookings";
+    public static final String COLUMN_BOOKING_ID = "booking_id";
+    public static final String COLUMN_USER_NIC = "user_nic";
+    public static final String COLUMN_BOOKING_DATE = "booking_date";
+    public static final String COLUMN_START_STATION = "start_station";
+    public static final String COLUMN_DESTINATION_STATION = "destination_station";
+
+
     // Create the Users table
     private static final String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + " (" +
             COLUMN_NIC + " TEXT PRIMARY KEY, " +
+            COLUMN_MOBILE + " INTEGER, " +
             COLUMN_USERNAME + " TEXT, " +
             COLUMN_PASSWORD + " TEXT, " +
             COLUMN_ACTIVE + " INTEGER DEFAULT 1);";
+
+    private static final String CREATE_BOOKINGS_TABLE = "CREATE TABLE " + TABLE_BOOKINGS + " (" +
+            COLUMN_BOOKING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_USER_NIC + " TEXT, " +
+            COLUMN_BOOKING_DATE + " TEXT, " +
+            COLUMN_START_STATION + " TEXT, " +
+            COLUMN_DESTINATION_STATION + " TEXT);";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,11 +47,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USERS_TABLE);
+        db.execSQL(CREATE_BOOKINGS_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Handle database upgrades, if needed
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BOOKINGS);
+        onCreate(db);
     }
+
+
+
 }
 

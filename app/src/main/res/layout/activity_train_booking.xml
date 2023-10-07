@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="16dp"
+    tools:context=".TrainBookingActivity">
+
+    <ImageButton
+        android:id="@+id/btnProfile"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/round_button"
+        android:src="@drawable/round_button" />
+
+    <!-- Date Selection -->
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Date:"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewDate"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:headerBackground="@color/purple_500" />
+
+    <!-- Start Station Dropdown -->
+    <TextView
+        android:id="@+id/textViewStartStation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Start Station:"
+        android:textSize="18sp"
+        android:layout_below="@id/datePicker"
+        android:layout_marginTop="16dp"/>
+
+    <Spinner
+        android:id="@+id/spinnerStartStation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewStartStation"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Destination Station Dropdown -->
+    <TextView
+        android:id="@+id/textViewDestinationStation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Destination Station:"
+        android:textSize="18sp"
+        android:layout_below="@id/spinnerStartStation"
+        android:layout_marginTop="16dp"/>
+
+    <Spinner
+        android:id="@+id/spinnerDestinationStation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewDestinationStation"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Book Button -->
+    <Button
+        android:id="@+id/btnBookTrain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Book Train"
+        android:layout_below="@id/spinnerDestinationStation"
+        android:layout_marginTop="16dp"/>
+
+</RelativeLayout>

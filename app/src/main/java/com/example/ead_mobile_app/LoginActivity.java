@@ -15,6 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Button btnLogin;
+    private Button btnRegistration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,25 +35,37 @@ public class LoginActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
 
-                // Perform authentication (you can add your logic here)
                 if (authenticate(username, password)) {
-                    // Authentication successful, navigate to the main activity
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    // Authentication successful, navigate to the TrainBookingActivity
+                    Intent intent = new Intent(LoginActivity.this, TrainBookingActivity.class);
                     startActivity(intent);
-                    finish();
+                    finish(); // Finish the LoginActivity so that the user can't navigate back to it
                 } else {
                     // Authentication failed, show an error message
                     Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Launch TrainBookingActivity after login
+                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    // Replace this with your actual authentication logic
     private boolean authenticate(String username, String password) {
         // You can implement your own logic, such as checking credentials against a database
         // For this example, we'll use a simple check
         return username.equals("your_username") && password.equals("your_password");
+    }
+    public void onLoginSuccess(String userNic) {
+        Intent intent = new Intent(this, TrainBookingActivity.class);
+        intent.putExtra("userNic", userNic); // Pass userNic to TrainBookingActivity
+        startActivity(intent);
+        finish(); // Finish LoginActivity
     }
 }
 
