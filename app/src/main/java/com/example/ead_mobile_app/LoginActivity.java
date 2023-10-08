@@ -1,5 +1,6 @@
 package com.example.ead_mobile_app;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -29,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
 
-        // Set a click listener for the login button
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,15 +37,35 @@ public class LoginActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
 
+                // Perform authentication (replace with your authentication logic)
                 if (authenticate(username, password)) {
-                    // Authentication successful, call onLoginSuccess and pass userNic
-                    onLoginSuccess("your_userNic_here"); // Replace "your_userNic_here" with the actual userNic
+                    // Get the userNic from the authentication system (e.g., session or database)
+                    String userNic = getUserNicByUsername(username);
+
+                    if (userNic != null) {
+                        // Check if the user is active or deactivated
+                        if (UserManager.isUserActive(userNic)) {
+                            // Authentication successful and user is active, navigate to the TrainBookingActivity
+                            Intent intent = new Intent(LoginActivity.this, TrainBookingActivity.class);
+                            intent.putExtra("userNic", userNic);
+                            startActivity(intent);
+                            finish(); // Finish the LoginActivity
+                        } else {
+                            // User is deactivated, show an error message
+                            Toast.makeText(LoginActivity.this, "Your account is deactivated", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        // Handle the case where userNic retrieval failed
+                        Toast.makeText(LoginActivity.this, "Failed to retrieve user information", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     // Authentication failed, show an error message
                     Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+
 
 //        btnLogin.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -81,11 +101,64 @@ public class LoginActivity extends AppCompatActivity {
         return isAuthenticated;
     }
 
-    public void onLoginSuccess(String userNic) {
-        Intent intent = new Intent(this, TrainBookingActivity.class);
-        intent.putExtra("userNic", userNic); // Pass userNic to TrainBookingActivity
-        startActivity(intent);
-        finish(); // Finish LoginActivity
+//    public void onLoginSuccess(String userNic) {
+//        Intent intent = new Intent(this, TrainBookingActivity.class);
+//        intent.putExtra("userNic", userNic); // Pass userNic to TrainBookingActivity
+//        startActivity(intent);
+//        finish(); // Finish LoginActivity
+//    }
+
+    @SuppressLint("Range")
+    private String getUserNicByUsername(String username) {
+        String userNic = null;
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+
+        try {
+            // Assuming you have a DatabaseHelper class for database operations
+            DatabaseHelper dbHelper = new DatabaseHelper(this); // Adjust 'this' to your context
+
+            // Get a readable database
+            db = dbHelper.getReadableDatabase();
+
+            // Define the columns you want to retrieve (in this case, user NIC)
+            String[] columns = {DatabaseHelper.COLUMN_NIC};
+
+            // Define the selection criteria (where clause)
+            String selection = DatabaseHelper.COLUMN_USERNAME + " = ?";
+
+            // Define the selection arguments (the username provided as an argument)
+            String[] selectionArgs = {username};
+
+            // Query the database to fetch the user NIC based on the username
+            cursor = db.query(
+                    DatabaseHelper.TABLE_USERS,
+                    columns,
+                    selection,
+                    selectionArgs,
+                    null,
+                    null,
+                    null
+            );
+
+            // Check if a result is found
+            if (cursor.moveToFirst()) {
+                userNic = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_NIC));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close the cursor and database
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+
+        return userNic;
     }
+
 }
 

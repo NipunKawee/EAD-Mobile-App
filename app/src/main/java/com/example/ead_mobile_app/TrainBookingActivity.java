@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class TrainBookingActivity extends AppCompatActivity {
 
+
+
     private DatePicker datePicker;
     private Spinner spinnerStartStation;
     private Spinner spinnerDestinationStation;
@@ -27,6 +29,9 @@ public class TrainBookingActivity extends AppCompatActivity {
     // Constructor that accepts userNic
     public TrainBookingActivity(String userNic) {
         this.userNic = userNic;
+    }
+
+    public TrainBookingActivity() {
     }
 
     @Override
@@ -77,6 +82,21 @@ public class TrainBookingActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an intent to navigate to the ProfileModificationActivity
+                Intent intent = new Intent(TrainBookingActivity.this, ProfileModificationActivity.class);
+
+                // Pass the userNic to the ProfileModificationActivity
+                intent.putExtra("userNic", userNic);
+
+                // Start the ProfileModificationActivity
+                startActivity(intent);
+            }
+        });
+
 
     }
 }
