@@ -50,7 +50,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     // Registration was successful
                     Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(RegistrationActivity.this, TrainBookingActivity.class);
+                    Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
                     startActivity(intent);
 
                     // Finish this activity so the user can't navigate back to it

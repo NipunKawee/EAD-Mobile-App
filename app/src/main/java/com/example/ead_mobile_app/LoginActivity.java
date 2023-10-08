@@ -1,6 +1,8 @@
 package com.example.ead_mobile_app;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 //import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -46,21 +48,45 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Launch TrainBookingActivity after login
-                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
-                startActivity(intent);
-            }
-        });
+//        btnLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Launch TrainBookingActivity after login
+//                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     private boolean authenticate(String username, String password) {
-        // You can implement your own logic, such as checking credentials against a database
-        // For this example, we'll use a simple check
-        return username.equals("your_username") && password.equals("your_password");
+        // Assuming you have a DatabaseHelper class to interact with the database
+        DatabaseHelper dbHelper = new DatabaseHelper(this); // Adjust 'this' to your context
+
+        // Perform a database query to check if the provided username and password exist
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query(
+                DatabaseHelper.TABLE_USERS,
+                new String[]{DatabaseHelper.COLUMN_USERNAME, DatabaseHelper.COLUMN_PASSWORD},
+                DatabaseHelper.COLUMN_USERNAME + " = ? AND " + DatabaseHelper.COLUMN_PASSWORD + " = ?",
+                new String[]{username, password},
+                null,
+                null,
+                null
+        );
+
+        boolean isAuthenticated = cursor.getCount() > 0;
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return isAuthenticated;
     }
+
+    //    private boolean authenticate(String username, String password) {
+//        // You can implement your own logic, such as checking credentials against a database
+//        return username.equals("your_username") && password.equals("your_password");
+//    }
     public void onLoginSuccess(String userNic) {
         Intent intent = new Intent(this, TrainBookingActivity.class);
         intent.putExtra("userNic", userNic); // Pass userNic to TrainBookingActivity
