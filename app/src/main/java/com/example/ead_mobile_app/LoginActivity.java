@@ -38,16 +38,15 @@ public class LoginActivity extends AppCompatActivity {
                 String password = etPassword.getText().toString().trim();
 
                 if (authenticate(username, password)) {
-                    // Authentication successful, navigate to the TrainBookingActivity
-                    Intent intent = new Intent(LoginActivity.this, TrainBookingActivity.class);
-                    startActivity(intent);
-                    finish(); // Finish the LoginActivity so that the user can't navigate back to it
+                    // Authentication successful, call onLoginSuccess and pass userNic
+                    onLoginSuccess("your_userNic_here"); // Replace "your_userNic_here" with the actual userNic
                 } else {
                     // Authentication failed, show an error message
                     Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
 //        btnLogin.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -59,8 +58,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean authenticate(String username, String password) {
-        // Assuming you have a DatabaseHelper class to interact with the database
-        DatabaseHelper dbHelper = new DatabaseHelper(this); // Adjust 'this' to your context
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
 
         // Perform a database query to check if the provided username and password exist
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -83,10 +81,6 @@ public class LoginActivity extends AppCompatActivity {
         return isAuthenticated;
     }
 
-    //    private boolean authenticate(String username, String password) {
-//        // You can implement your own logic, such as checking credentials against a database
-//        return username.equals("your_username") && password.equals("your_password");
-//    }
     public void onLoginSuccess(String userNic) {
         Intent intent = new Intent(this, TrainBookingActivity.class);
         intent.putExtra("userNic", userNic); // Pass userNic to TrainBookingActivity
