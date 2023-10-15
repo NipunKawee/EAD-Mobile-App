@@ -46,6 +46,16 @@
                 android:background="@drawable/round_button"
                 android:layout_gravity="end" />
 
+            <Button
+                android:id="@+id/btnBookingHistory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Booking History"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnProfile" />
+
 
             <!-- Select Date TextView -->
             <TextView

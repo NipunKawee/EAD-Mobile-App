@@ -56,6 +56,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BOOKINGS);
         onCreate(db);
     }
+    public boolean deleteBooking(int bookingId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsDeleted = db.delete("bookings", "booking_id=?", new String[]{String.valueOf(bookingId)});
+        db.close();
+        return rowsDeleted > 0;
+    }
+
+
+
 
 
 

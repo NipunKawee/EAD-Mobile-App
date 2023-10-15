@@ -23,6 +23,7 @@ public class TrainBookingActivity extends AppCompatActivity {
     private Spinner spinnerDestinationStation;
     private Button btnBookTrain;
     private ImageButton btnProfile;
+    private Button btnBookingHistory;
 
     private String userNic; // Member variable to store userNic
 
@@ -47,6 +48,7 @@ public class TrainBookingActivity extends AppCompatActivity {
         spinnerDestinationStation = findViewById(R.id.spinnerDestinationStation);
         btnBookTrain = findViewById(R.id.btnBookTrain);
         btnProfile = findViewById(R.id.btnProfile);
+        btnBookingHistory = findViewById(R.id.btnBookingHistory);
 
         ArrayAdapter<CharSequence> stationAdapter = ArrayAdapter.createFromResource(
                 this, R.array.station_array, android.R.layout.simple_spinner_item);
@@ -93,6 +95,20 @@ public class TrainBookingActivity extends AppCompatActivity {
                 intent.putExtra("userNic", userNic);
 
                 // Start the ProfileModificationActivity
+                startActivity(intent);
+            }
+        });
+
+        btnBookingHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an intent to navigate to the PreviousBookingsActivity
+                Intent intent = new Intent(TrainBookingActivity.this, BookingHistoryActivity.class);
+
+                // Pass the userNic to the PreviousBookingsActivity
+                intent.putExtra("userNic", userNic);
+
+                // Start the PreviousBookingsActivity
                 startActivity(intent);
             }
         });
